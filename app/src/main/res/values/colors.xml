@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="dividerline">#ffababab</color>
+
+    <color name="tab_text_normal">#ff000000</color>
+    <color name="tab_text_selected">#12a6dd</color>
+
+
+    <color name="textColor">#ff000000</color>
+    <color name="backgoundColor">#ffffffff</color>
+    <color name="login_bg">#fffe1751</color>
+
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="toobar">#ff1094c7</color>
+    <color name="addmember_status">#ff046b9f</color>
+
+    <color name="ozner_potro">#fffe728c</color>
+
+    <color name="main_background">#fff7f7f7</color>
+    <color name="line">#fff0f0f0</color>
+    <color name="guide_selected">#12a6dd</color>
+
+    <color name="card_item_left">#ffe75c65</color>
+    <color name="card_item_right">#ffe9517c</color>
+
+    <color name="order_distance">#fffe6f7a</color>
+    <color name="order_line">#ffbbbaba</color>
+    <color name="next_btn">#ffb4b4b4</color>
+    <color name="dark_gray">#ffd9d8d8</color>
+    <color name="auth_bg_gray">#fff0f0f0</color>
+    <color name="order_ensure_blue">#ff00b8fc</color>
+
+    <color name="home_manage_title">#ff23272c</color>
+    <color name="home_manage_top">#ff049ed9</color>
+
+    <color name="home_banner_top_unsel">#ffbeeafe</color>
+    <color name="home_banner_top_sel">#ff0163b7</color>
+    <color name="translucent_background">#80000000</color>
+    <color name="auth_select_identity_bg">#ffff5000</color>
+
+    <color name="order_detail_time">#666666</color>
+    <color name="order_detail_type">#757575</color>
+    <color name="order_detail_price">#404040</color>
+    <color name="order_pay_text">#7a7a7a</color>
+    <color name="order_pay_price">#333333</color>
+    <color name="order_pay_state">#ff5000</color>
+    <color name="order_pay">#3c79f2</color>
+    <color name="order_bg">#f5f5f9</color>
+    <color name="order_text">#c0c0c2</color>
+
+    <color name="manage_addmem_et">#30ffffff</color>
+
+    <color name="center_start_blue">#ff04a6c3</color>
+    <color name="center_end_blue">#ff03bbb6</color>
+    <color name="translucent">#00000000</color>
+
+    <!--修改之后的背景色-->
+    <color name="btn_bg">#ffef8f25</color>
+
+    <color name="deposit_bg">#efeff4</color>
+    <color name="deposit_bank_bg">#fbfbfb</color>
+    <color name="deposit_bank_textbg">#576b9e</color>
+    <color name="deposit_textbg">#576b95</color>
+    <color name="deposit_balance">#888888</color>
+    <color name="deposit_line">#d8d8d8</color>
+
+    <color name="withdrawal_application_cardbg">#7b7b7b</color>
+</resources>
