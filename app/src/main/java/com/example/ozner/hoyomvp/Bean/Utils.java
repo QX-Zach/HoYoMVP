@@ -18,8 +18,4 @@ public class Utils {
     public int hashCode() {
         return super.hashCode();
     }
-    public void testMethod(){
-        System.out.println("仅仅是测试代码");
-    }
-
 }
