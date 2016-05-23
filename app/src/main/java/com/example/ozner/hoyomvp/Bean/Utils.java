@@ -18,4 +18,7 @@ public class Utils {
     public int hashCode() {
         return super.hashCode();
     }
+    public void testMethod(){
+
+    }
 }
