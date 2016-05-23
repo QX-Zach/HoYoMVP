@@ -34,6 +34,14 @@ public interface HttpApiService {
      */
     @FormUrlEncoded
     @POST("Command/GetOwenBindBlankCard")
-    public Call<String> getOwenBindBlankCard(@Field("usertoken") String usertoken);
+    public Call<NetJsonResponse> getOwenBindBlankCard(@Field("usertoken") String usertoken);
 
+    /*
+    *绑定极光ID
+    * @usertoken
+    * @notifyid 极光通知ID
+     */
+    @FormUrlEncoded
+    @POST("Command/BingJgNotifyId")
+    public Call<NetJsonResponse> bindJgNotifyId(@Field("usertoken") String usertoken, @Field("notifyid") String notifyid);
 }
