@@ -19,11 +19,4 @@ public class Utils {
         return super.hashCode();
     }
 
-    public void zxdTestMethod(){
-        System.out.println("车回事");
-
-
-
-
-    }
 }
