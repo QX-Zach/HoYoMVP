@@ -27,11 +27,6 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends BaseFragment {
-    @InjectView(R.id.et_mobile)
-    EditText etMobile;
-    @InjectView(R.id.btn_sendCode)
-    Button btnSendCode;
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null, false);
@@ -43,10 +38,5 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
-    }
-
-    @OnClick(R.id.btn_sendCode)
-    public void onClick() {
-        String mobile = etMobile.getText().toString().trim();
     }
 }
