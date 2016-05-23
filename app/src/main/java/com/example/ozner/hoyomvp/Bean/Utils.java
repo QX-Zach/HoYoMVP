@@ -23,4 +23,6 @@ public class Utils {
         System.out.println("cheshishusu");
     }
 
+    public void test(){}
+
 }
