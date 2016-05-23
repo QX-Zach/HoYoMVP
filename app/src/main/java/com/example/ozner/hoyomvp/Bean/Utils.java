@@ -17,11 +17,9 @@ public class Utils {
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+    public void testMethod(){
 
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }
