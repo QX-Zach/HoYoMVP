@@ -35,4 +35,5 @@ public interface HttpApiService {
     @FormUrlEncoded
     @POST("Command/GetOwenBindBlankCard")
     public Call<String> getOwenBindBlankCard(@Field("usertoken") String usertoken);
+
 }
