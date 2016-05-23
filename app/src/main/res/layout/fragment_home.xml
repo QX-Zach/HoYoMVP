@@ -13,16 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Home" />
-        <EditText
-            android:id="@+id/et_mobile"
-            android:text="13166398575"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:text="获取验证码"
-            android:id="@+id/btn_sendCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </FrameLayout>
