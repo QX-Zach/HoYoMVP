@@ -8,4 +8,9 @@ public class Utils {
     public String toString() {
         return super.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }
