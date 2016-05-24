@@ -3,6 +3,7 @@ package com.example.ozner.hoyomvp;
 import android.app.Application;
 
 import com.example.ozner.hoyomvp.Bean.HttpApiService;
+import com.example.ozner.hoyomvp.Bean.LogUtilLC;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,6 +17,7 @@ public class HoYoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LogUtilLC.init(getApplicationContext());
         initHttpApi();
     }
 
