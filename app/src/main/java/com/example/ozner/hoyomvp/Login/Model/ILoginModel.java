@@ -7,5 +7,5 @@ import com.example.ozner.hoyomvp.Bean.ResponseListener;
  */
 public interface ILoginModel {
     void Login(String phone, String passwor, ResponseListener rl);
-    void cancleLogin();
+    void calcleLogin();
 }

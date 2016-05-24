@@ -1,6 +1,6 @@
 package com.example.ozner.hoyomvp.Login.Presenter;
 
-import com.example.ozner.hoyomvp.Bean.IBaseView;
+import com.example.ozner.hoyomvp.IBaseView;
 import com.example.ozner.hoyomvp.Bean.LogUtilLC;
 import com.example.ozner.hoyomvp.Bean.NetJsonResponse;
 import com.example.ozner.hoyomvp.Bean.ResponseListener;
@@ -23,33 +23,40 @@ public class LoginPresenter {
     }
 
     public void login() {
-        baseView.showLoading("正在登录...");
-        loginModel.Login(loginView.getLoginMobile(), loginView.getLoginPassword(), new ResponseListener() {
-            @Override
-            public void onSuccess(NetJsonResponse data) {
-                baseView.hiddeLoading();
-                if (data != null) {
-                    if (LogUtilLC.APP_DBG) {
-                        LogUtilLC.E("tag", "state:" + data.getState() + ",usertoken:" + data.getMsg() + ",userid:" + data.getData());
+        if (loginView.getLoginMobile().length() == 11 && loginView.getLoginPassword().length() > 0) {
+            baseView.showLoading("正在登录...");
+            loginModel.Login(loginView.getLoginMobile(), loginView.getLoginPassword(), new ResponseListener() {
+                @Override
+                public void onSuccess(NetJsonResponse data) {
+                    baseView.hiddeLoading();
+                    if (data != null) {
+                        if (LogUtilLC.APP_DBG) {
+                            LogUtilLC.E("tag", "登录：" + data.toString());
+                        }
+                        if (data.getState() > 0) {
+                            loginView.loginSuccess();
+                        } else if (data.getState() != 0 && data.getState() != -10015) {
+                            baseView.showErrMsg(data.getState());
+                        }
                     }
-                    loginView.loginSuccess();
                 }
 
-            }
-
-            @Override
-            public void onFailure(String errmsg) {
-                baseView.hiddeLoading();
-                if (LogUtilLC.APP_DBG) {
-                    LogUtilLC.E("tag", "登录失败:" + errmsg);
+                @Override
+                public void onFailure(String errmsg) {
+                    baseView.hiddeLoading();
+                    if (LogUtilLC.APP_DBG) {
+                        LogUtilLC.E("tag", "登录失败:" + errmsg);
+                    }
+                    baseView.showToast("请检查网络连接");
                 }
-                loginView.showFailedErr(errmsg);
-            }
-        });
+            });
+        } else {
+            baseView.showToast("请输入正确的手机号和密码");
+        }
     }
 
     public void cancleLogin() {
-        loginModel.cancleLogin();
+        loginModel.calcleLogin();
         baseView.hiddeLoading();
     }
 }

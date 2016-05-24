@@ -1,5 +1,7 @@
 package com.example.ozner.hoyomvp.Login.Model;
 
+import com.example.ozner.hoyomvp.BaseModel;
+import com.example.ozner.hoyomvp.Bean.BaseCallBack;
 import com.example.ozner.hoyomvp.Bean.HttpApiService;
 import com.example.ozner.hoyomvp.Bean.NetJsonResponse;
 import com.example.ozner.hoyomvp.Bean.ResponseListener;
@@ -12,29 +14,16 @@ import retrofit2.Response;
 /**
  * Created by ozner_67 on 2016/5/24.
  */
-public class LoginModel implements ILoginModel {
-    private Call<NetJsonResponse> loginCall;
+public class LoginModel extends BaseModel implements ILoginModel {
 
     @Override
     public void Login(String phone, String passwor, final ResponseListener rl) {
-        loginCall = HoYoApplication.getHttpApiService().login(phone, passwor);
-        loginCall.enqueue(new Callback<NetJsonResponse>() {
-            @Override
-            public void onResponse(Call<NetJsonResponse> call, Response<NetJsonResponse> response) {
-                rl.onSuccess(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<NetJsonResponse> call, Throwable t) {
-                rl.onFailure(t.getMessage());
-            }
-        });
+        httpCall = HoYoApplication.getHttpApiService().login(phone, passwor);
+        httpCall.enqueue(new BaseCallBack(rl));
     }
 
     @Override
-    public void cancleLogin() {
-        if (loginCall != null) {
-            loginCall.cancel();
-        }
+    public void calcleLogin() {
+        cancleHttp();
     }
 }

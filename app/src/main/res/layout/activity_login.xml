@@ -292,8 +292,8 @@
                     android:layout_height="20dp"
                     android:src="@drawable/login_user" />
 
-                <EditText
-                    android:id="@+id/reg_et_two_mobile"
+                <TextView
+                    android:id="@+id/reg_tv_two_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border_none"

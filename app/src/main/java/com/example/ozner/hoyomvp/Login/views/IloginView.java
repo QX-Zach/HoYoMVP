@@ -12,5 +12,4 @@ public interface IloginView {
 
     void loginSuccess();
 
-    void showFailedErr(String msg);
 }

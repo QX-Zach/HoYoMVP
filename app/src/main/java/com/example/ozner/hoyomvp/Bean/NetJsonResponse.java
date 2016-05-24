@@ -33,4 +33,9 @@ public class NetJsonResponse {
     public void setData(String data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "state:" + state + ",msg:" + msg + ",data:" + data;
+    }
 }
