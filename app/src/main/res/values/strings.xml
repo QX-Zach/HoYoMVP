@@ -3,4 +3,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="guide_my">我的</string>
+    <string name="center_auth">实名认证</string>
+    <string name="center_exam">我的考试</string>
+    <string name="center_my_site">我的网点</string>
+    <string name="center_site">站点</string>
+    <string name="center_setup">设置</string>
+    <string name="center_star">星级</string>
 </resources>

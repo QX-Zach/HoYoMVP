@@ -1,14 +1,15 @@
 package com.example.ozner.hoyomvp.Login.Presenter;
 
-import android.widget.Toast;
+import android.content.Context;
 
-import com.example.ozner.hoyomvp.Bean.LogUtilLC;
-import com.example.ozner.hoyomvp.Bean.NetJsonResponse;
-import com.example.ozner.hoyomvp.Bean.ResponseListener;
+import com.example.ozner.hoyomvp.Utils.LogUtilLC;
+import com.example.ozner.hoyomvp.HttpService.NetJsonResponse;
+import com.example.ozner.hoyomvp.HttpService.ResponseListener;
 import com.example.ozner.hoyomvp.IBaseView;
 import com.example.ozner.hoyomvp.Login.Model.IRegistModel;
 import com.example.ozner.hoyomvp.Login.Model.RegistModel;
 import com.example.ozner.hoyomvp.Login.views.IRegistView;
+import com.example.ozner.hoyomvp.Utils.HoYoPreference;
 
 /**
  * Created by ozner_67 on 2016/5/24.
@@ -29,9 +30,9 @@ public class RegistPresenter {
     public void sendPhoneCode() {
         if (registView.getRegistMobile() != null && registView.getRegistMobile().length() > 0) {
             baseView.showLoading("正在发送验证码...");
-            registModel.sendPhoneCode(registView.getRegistMobile(), new ResponseListener() {
+            registModel.sendPhoneCode(registView.getRegistMobile(), new ResponseListener<NetJsonResponse<String>>() {
                 @Override
-                public void onSuccess(NetJsonResponse data) {
+                public void onSuccess(NetJsonResponse<String> data) {
                     baseView.hiddeLoading();
                     if (data != null) {
                         if (data.getState() > 0) {
@@ -60,9 +61,9 @@ public class RegistPresenter {
     public void checkVerifyCode() {
         if (registView.getVerifyCode().length() > 0) {
             baseView.showLoading("正在验证，请稍后...");
-            registModel.checkVerifyCode(registView.getRegistMobile(), registView.getVerifyCode(), new ResponseListener() {
+            registModel.checkVerifyCode(registView.getRegistMobile(), registView.getVerifyCode(), new ResponseListener<NetJsonResponse<String>>() {
                 @Override
-                public void onSuccess(NetJsonResponse data) {
+                public void onSuccess(NetJsonResponse<String> data) {
                     baseView.hiddeLoading();
                     if (data != null) {
                         if (data.getState() > 0) {
@@ -85,12 +86,11 @@ public class RegistPresenter {
         }
     }
 
-    public void registSubmit() {
+    public void registSubmit(final Context context) {
         boolean hasVerify = true;
         String realname = registView.getRegisterName();
         String cardid = registView.getRegisterIDNo();
         String password = registView.getRegisterPassword();
-        String invite = registView.getRegisterInviteCode();
         if (realname == null || realname.length() == 0) {
             hasVerify = false;
             baseView.showToast("请填写姓名");
@@ -104,14 +104,15 @@ public class RegistPresenter {
         }
         if (hasVerify) {
             baseView.showLoading("正在提交...");
-            registModel.registSubmit(verifyToken, realname, cardid, password, new ResponseListener() {
+            registModel.registSubmit(verifyToken, realname, cardid, password, new ResponseListener<NetJsonResponse<String>>() {
                 @Override
-                public void onSuccess(NetJsonResponse data) {
+                public void onSuccess(NetJsonResponse<String> data) {
                     baseView.hiddeLoading();
                     if (data != null) {
                         if (data.getState() > 0) {
-                            String usertoken = data.getMsg();
-                            String userid = data.getData();
+                            HoYoPreference.setUserToken(context, data.getMsg());
+                            HoYoPreference.setUserID(context, data.getData());
+                            registView.registSuccess();
                         } else if (data.getState() == -10015) {
                             baseView.finishAll();
                         } else if (data.getState() != 0) {

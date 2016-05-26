@@ -7,21 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.ozner.hoyomvp.BaseFragment;
-import com.example.ozner.hoyomvp.Bean.LogUtilLC;
-import com.example.ozner.hoyomvp.Bean.NetJsonResponse;
-import com.example.ozner.hoyomvp.HoYoApplication;
 import com.example.ozner.hoyomvp.R;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.

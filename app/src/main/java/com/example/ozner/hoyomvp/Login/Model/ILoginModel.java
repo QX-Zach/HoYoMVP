@@ -1,6 +1,6 @@
 package com.example.ozner.hoyomvp.Login.Model;
 
-import com.example.ozner.hoyomvp.Bean.ResponseListener;
+import com.example.ozner.hoyomvp.HttpService.ResponseListener;
 
 /**
  * Created by ozner_67 on 2016/5/24.

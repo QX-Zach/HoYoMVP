@@ -1,4 +1,9 @@
-package com.example.ozner.hoyomvp.Bean;
+package com.example.ozner.hoyomvp.HttpService;
+
+import com.example.ozner.hoyomvp.Bean.AuthorityDetail;
+import com.example.ozner.hoyomvp.Bean.IndexInfo;
+
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,7 +23,7 @@ public interface HttpApiService {
      */
     @FormUrlEncoded
     @POST("Command/SendPhoneCode")
-    Call<NetJsonResponse> sendPhoneCode(@Field("mobile") String mobile, @Field("order") String order, @Field("scope") String scope);
+    Call<NetJsonResponse<String>> sendPhoneCode(@Field("mobile") String mobile, @Field("order") String order, @Field("scope") String scope);
 
     /*
     *校验手机号和验证码
@@ -27,7 +32,7 @@ public interface HttpApiService {
      */
     @FormUrlEncoded
     @POST("FamilyAccount/AppChenkPhone")
-    Call<NetJsonResponse> checkVerifyCode(@Field("phone") String phone, @Field("code") String code);
+    Call<NetJsonResponse<String>> checkVerifyCode(@Field("phone") String phone, @Field("code") String code);
 
     /*
     * 用户注册
@@ -39,7 +44,7 @@ public interface HttpApiService {
      */
     @FormUrlEncoded
     @POST("FamilyAccount/AppRegister")
-    Call<NetJsonResponse> registSubmit(@Field("token") String token, @Field("realname") String name, @Field("cardid") String cardid, @Field("password") String password, @Field("scope") String scope);
+    Call<NetJsonResponse<String>> registSubmit(@Field("token") String token, @Field("realname") String name, @Field("cardid") String cardid, @Field("password") String password, @Field("scope") String scope);
 
     /*
     *APP登录
@@ -48,7 +53,22 @@ public interface HttpApiService {
      */
     @FormUrlEncoded
     @POST("FamilyAccount/AppLogin")
-    Call<NetJsonResponse> login(@Field("phone") String phone, @Field("password") String password);
+    Call<NetJsonResponse<String>> login(@Field("phone") String phone, @Field("password") String password);
+
+    /*
+    *获取当前权限的信息或者审核进度，获取团队成员信息
+    * @usertoken
+     */
+    @FormUrlEncoded
+    @POST("AppInterface/GetNowAuthorityDetail")
+    Call<NetJsonResponse<AuthorityDetail>> getNowAuthorityDetail(@Field("usertoken") String usertoken);
+
+    /*
+    *刷新首页信息
+     */
+    @FormUrlEncoded
+    @POST("AppInterface/RefreshIndex")
+    Call<NetJsonResponse<IndexInfo>> refreshIndexInfo(@Field("usertoken") String usertoken);
 
     /*
     *获取所有我的绑定银行卡列表

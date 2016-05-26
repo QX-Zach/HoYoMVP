@@ -1,6 +1,6 @@
 package com.example.ozner.hoyomvp;
 
-import com.example.ozner.hoyomvp.Bean.NetJsonResponse;
+import com.example.ozner.hoyomvp.HttpService.NetJsonResponse;
 
 import retrofit2.Call;
 

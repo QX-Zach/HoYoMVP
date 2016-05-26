@@ -1,4 +1,4 @@
-package com.example.ozner.hoyomvp.Bean;
+package com.example.ozner.hoyomvp.Utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

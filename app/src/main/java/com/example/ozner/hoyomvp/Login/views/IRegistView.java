@@ -19,4 +19,5 @@ public interface IRegistView {
     String getRegisterPassword();
 
     String getRegisterInviteCode();
+    void registSuccess();
 }

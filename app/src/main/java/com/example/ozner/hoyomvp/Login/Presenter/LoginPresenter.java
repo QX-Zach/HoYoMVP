@@ -1,12 +1,17 @@
 package com.example.ozner.hoyomvp.Login.Presenter;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.example.ozner.hoyomvp.IBaseView;
-import com.example.ozner.hoyomvp.Bean.LogUtilLC;
-import com.example.ozner.hoyomvp.Bean.NetJsonResponse;
-import com.example.ozner.hoyomvp.Bean.ResponseListener;
+import com.example.ozner.hoyomvp.Utils.LogUtilLC;
+import com.example.ozner.hoyomvp.HttpService.NetJsonResponse;
+import com.example.ozner.hoyomvp.HttpService.ResponseListener;
+import com.example.ozner.hoyomvp.Login.LoginActivity;
 import com.example.ozner.hoyomvp.Login.Model.ILoginModel;
 import com.example.ozner.hoyomvp.Login.Model.LoginModel;
 import com.example.ozner.hoyomvp.Login.views.IloginView;
+import com.example.ozner.hoyomvp.Utils.HoYoPreference;
 
 /**
  * Created by ozner_67 on 2016/5/24.
@@ -22,21 +27,27 @@ public class LoginPresenter {
         loginModel = new LoginModel();
     }
 
-    public void login() {
+    public void login(final Context context) {
         if (loginView.getLoginMobile().length() == 11 && loginView.getLoginPassword().length() > 0) {
             baseView.showLoading("正在登录...");
-            loginModel.Login(loginView.getLoginMobile(), loginView.getLoginPassword(), new ResponseListener() {
+            loginModel.Login(loginView.getLoginMobile(), loginView.getLoginPassword(), new ResponseListener<NetJsonResponse<String>>() {
                 @Override
-                public void onSuccess(NetJsonResponse data) {
+                public void onSuccess(NetJsonResponse<String> data) {
                     baseView.hiddeLoading();
                     if (data != null) {
                         if (LogUtilLC.APP_DBG) {
                             LogUtilLC.E("tag", "登录：" + data.toString());
                         }
                         if (data.getState() > 0) {
+                            HoYoPreference.setUserID(context, data.getData());
+                            HoYoPreference.setUserToken(context, data.getMsg());
                             loginView.loginSuccess();
                         } else if (data.getState() != 0 && data.getState() != -10015) {
                             baseView.showErrMsg(data.getState());
+                        } else {
+                            baseView.finishAll();
+                            Intent loginIntent = new Intent(context, LoginActivity.class);
+                            context.startActivity(loginIntent);
                         }
                     }
                 }

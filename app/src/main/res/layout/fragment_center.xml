@@ -4,10 +4,344 @@
     android:layout_height="match_parent"
     tools:context="com.example.ozner.hoyomvp.MyCenter.CenterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/main_background"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/home_manage_title"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/guide_my"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlay_personalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/iv_center_headImg"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_default_headimage" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/iv_center_headImg">
+
+                    <TextView
+                        android:id="@+id/tv_center_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/tv_center_userid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/tv_center_name"
+                        android:textColor="@color/btn_bg" />
+
+                    <TextView
+                        android:id="@+id/tv_user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text=""
+                        android:textColor="@color/black" />
+                </RelativeLayout>
+
+                <ImageView style="@style/CenterRightArrow" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlay_auth_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="27dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/my_auth" />
+
+                    <TextView
+                        style="@style/CenterItemText"
+                        android:text="实名认证" />
+
+                    <ImageView style="@style/CenterRightArrow" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line"></LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlay_my_exam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="27dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/my_exam" />
+
+                    <TextView
+                        style="@style/CenterItemText"
+                        android:text="@string/center_exam" />
+
+                    <ImageView style="@style/CenterRightArrow" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line"></LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlay_quit_parter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="27dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/my_parter" />
+
+                    <TextView
+                        style="@style/CenterItemText"
+                        android:text="@string/center_my_site" />
+
+                    <ImageView style="@style/CenterRightArrow" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line"></LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlay_star"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="27dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/my_auth" />
+
+                    <TextView
+                        style="@style/CenterItemText"
+                        android:text="我的评价" />
+
+                    <ImageView style="@style/CenterRightArrow" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line"></LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlay_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="27dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/my_auth" />
+
+                    <TextView
+                        style="@style/CenterItemText"
+                        android:text="服务直通车" />
+
+                    <ImageView style="@style/CenterRightArrow" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/rlay_site"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="27dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/my_site" />
+
+                    <TextView
+                        style="@style/CenterItemText"
+                        android:text="@string/center_site" />
+
+                    <ImageView style="@style/CenterRightArrow" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line"></LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/rlay_setup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="27dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/my_setup" />
+
+                    <TextView
+                        style="@style/CenterItemText"
+                        android:text="@string/center_setup" />
+
+                    <ImageView style="@style/CenterRightArrow" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

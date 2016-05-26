@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.example.ozner.hoyomvp.Bean.FagmentListener;
 import com.example.ozner.hoyomvp.Home.HomeFragment;
 import com.example.ozner.hoyomvp.Manager.ManagerFragment;
 import com.example.ozner.hoyomvp.Message.MessageFragment;
@@ -21,12 +22,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements FagmentListener {
 
-    //    @InjectView(R.id.indicator)
-//    Button indicator;
-//    @InjectView(R.id.view_pager)
-//    ViewPager viewPager;
     IconTabPageIndicator mIndicator;
     ViewPager mViewPager;
 
@@ -41,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-//        ((Button)findViewById(R.id.indicator)).setText("凌晨");
-//        indicator.setText("凌晨");
         List<BaseFragment> fragments = initFraments();
         FragmentAdapter adapter = new FragmentAdapter(fragments, getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
@@ -73,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(centerFragment);
 
         return fragments;
+    }
+
+    @Override
+    public void finishAcitity() {
+        finishAll();
     }
 
     class FragmentAdapter extends FragmentPagerAdapter implements IconPagerAdapter {

@@ -33,10 +33,6 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements IloginView, IRegistView, RadioGroup.OnCheckedChangeListener {
 
-    @InjectView(R.id.rb_login)
-    RadioButton rbLogin;
-    @InjectView(R.id.rb_register)
-    RadioButton rbRegister;
     @InjectView(R.id.rg_label_sel)
     RadioGroup rgLabelSel;
     @InjectView(R.id.login_et_phone)
@@ -53,8 +49,6 @@ public class LoginActivity extends BaseActivity implements IloginView, IRegistVi
     Button btnRegStepOne;
     @InjectView(R.id.cb_protocol)
     CheckBox cbProtocol;
-    @InjectView(R.id.tv_protocol)
-    TextView tvProtocol;
     @InjectView(R.id.llay_reg_step_one)
     LinearLayout llayRegStepOne;
     @InjectView(R.id.reg_et_two_verify)
@@ -77,11 +71,6 @@ public class LoginActivity extends BaseActivity implements IloginView, IRegistVi
     LinearLayout llayRegStepThree;
     @InjectView(R.id.llay_register)
     LinearLayout llayRegister;
-    @InjectView(R.id.btn_login)
-    Button btnLogin;
-    @InjectView(R.id.btn_reg_step_three)
-    Button btnRegStepThree;
-
     LoginPresenter loginPresenter;
     RegistPresenter registPresenter;
     @InjectView(R.id.reg_tv_two_mobile)
@@ -133,26 +122,6 @@ public class LoginActivity extends BaseActivity implements IloginView, IRegistVi
                 }
             }
         });
-//        regEtTwoMobile.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if (s.length() == 11 && regEtTwoMobile.getText().length() > 0) {
-//                    btnRegStepTwo.setEnabled(true);
-//                } else {
-//                    btnRegStepTwo.setEnabled(false);
-//                }
-//            }
-//        });
 
         regEtTwoVerify.addTextChangedListener(new TextWatcher() {
             @Override
@@ -179,17 +148,17 @@ public class LoginActivity extends BaseActivity implements IloginView, IRegistVi
     @OnClick({R.id.btn_login, R.id.btn_reg_step_one, R.id.btn_reg_step_three})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_login:
+                loginPresenter.login(LoginActivity.this);
+                break;
             case R.id.btn_reg_step_one:
                 registPresenter.sendPhoneCode();
-                break;
-            case R.id.btn_login:
-                loginPresenter.login();
                 break;
             case R.id.btn_reg_step_two:
                 registPresenter.checkVerifyCode();
                 break;
             case R.id.btn_reg_step_three:
-
+                registPresenter.registSubmit(LoginActivity.this);
                 break;
         }
     }
@@ -274,6 +243,12 @@ public class LoginActivity extends BaseActivity implements IloginView, IRegistVi
     @Override
     public String getRegisterInviteCode() {
         return regEtThreeInvite.getText().toString().trim();
+    }
+
+    @Override
+    public void registSuccess() {
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        LoginActivity.this.finish();
     }
 
     TimerTask task = new TimerTask() {
