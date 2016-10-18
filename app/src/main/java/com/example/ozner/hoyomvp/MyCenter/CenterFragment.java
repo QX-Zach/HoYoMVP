@@ -1,9 +1,12 @@
 package com.example.ozner.hoyomvp.MyCenter;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +14,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.ozner.hoyomvp.BaseFragment;
 import com.example.ozner.hoyomvp.Bean.IndexInfo;
 import com.example.ozner.hoyomvp.HoYoApplication;
 import com.example.ozner.hoyomvp.MyCenter.Presenter.CenterFgPresenter;
 import com.example.ozner.hoyomvp.MyCenter.views.ICenterFgView;
 import com.example.ozner.hoyomvp.R;
-import com.example.ozner.hoyomvp.Utils.HoYoPreference;
 import com.example.ozner.hoyomvp.Utils.ImageHelper;
-import com.example.ozner.hoyomvp.Utils.LogUtilLC;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -68,6 +72,19 @@ public class CenterFragment extends BaseFragment implements ICenterFgView {
         centerFgPresenter = new CenterFgPresenter(this);
         imageHelper = new ImageHelper(getContext());
         centerFgPresenter.initData(getContext());
+//        Glide.with(this).load("http://www.33lc.com/article/UploadPic/2012-8/201282413335761587.jpg")
+//                .asBitmap()
+//                .centerCrop()
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .into(new BitmapImageViewTarget(ivCenterHeadImg){
+//                    @Override
+//                    protected void setResource(Bitmap resource) {
+//                        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getContext().getResources(),resource);
+//                        roundedBitmapDrawable.setCircular(true);
+////                        super.setResource(resource);
+//                        ivCenterHeadImg.setImageDrawable(roundedBitmapDrawable);
+//                    }
+//                });
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -78,28 +95,48 @@ public class CenterFragment extends BaseFragment implements ICenterFgView {
 
     @Override
     public void showUserInfo(IndexInfo indexInfo) {
-        if (indexInfo.getUser().getHeadimageurl() != null && indexInfo.getUser().getHeadimageurl() != "") {
-            if (indexInfo.getUser().getHeadimageurl().startsWith("http:")) {
-                imageHelper.loadImage(ivCenterHeadImg, indexInfo.getUser().getHeadimageurl(), ImageHelper.LoadImageType.Round);
-            } else {
-                imageHelper.loadImage(ivCenterHeadImg, HoYoApplication.BaseUrl + indexInfo.getUser().getHeadimageurl(), ImageHelper.LoadImageType.Round);
+        if (CenterFragment.this.isAdded() && !CenterFragment.this.isRemoving() && !isDetached()) {
+            if (indexInfo.getUser().getHeadimageurl() != null && indexInfo.getUser().getHeadimageurl() != "") {
+                if (indexInfo.getUser().getHeadimageurl().startsWith("http:")) {
+//                    imageHelper.loadImage(ivCenterHeadImg, indexInfo.getUser().getHeadimageurl(), ImageHelper.LoadImageType.Round);
+                    loadHeadImg(indexInfo.getUser().getHeadimageurl(), ivCenterHeadImg);
+                } else {
+                    loadHeadImg(HoYoApplication.BaseUrl + indexInfo.getUser().getHeadimageurl(), ivCenterHeadImg);
+//                    imageHelper.loadImage(ivCenterHeadImg, HoYoApplication.BaseUrl + indexInfo.getUser().getHeadimageurl(), ImageHelper.LoadImageType.Round);
+                }
             }
-        }
 
-        if (indexInfo.getUser().getNickname() != null && indexInfo.getUser().getNickname() != "") {
-            tvUserPhone.setText(indexInfo.getUser().getMobile());
-        }
-        tvCenterUserid.setText("(工号:" + String.valueOf(indexInfo.getUser().getUserid()) + ")");
-
-        if (indexInfo.getRealname() != null) {
-            tvCenterName.setText(indexInfo.getRealname().getName());
-        } else {
             if (indexInfo.getUser().getNickname() != null && indexInfo.getUser().getNickname() != "") {
-                tvCenterName.setText(indexInfo.getUser().getNickname());
+                tvUserPhone.setText(indexInfo.getUser().getMobile());
+            }
+            tvCenterUserid.setText("(工号:" + String.valueOf(indexInfo.getUser().getUserid()) + ")");
+
+            if (indexInfo.getRealname() != null) {
+                tvCenterName.setText(indexInfo.getRealname().getName());
             } else {
-                tvCenterName.setText(indexInfo.getUser().getMobile());
+                if (indexInfo.getUser().getNickname() != null && indexInfo.getUser().getNickname() != "") {
+                    tvCenterName.setText(indexInfo.getUser().getNickname());
+                } else {
+                    tvCenterName.setText(indexInfo.getUser().getMobile());
+                }
             }
         }
+    }
+
+    public void loadHeadImg(String url, final ImageView ivheadImg) {
+        Glide.with(this).load(url)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(new BitmapImageViewTarget(ivheadImg) {
+                    @Override
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getContext().getResources(), resource);
+                        roundedBitmapDrawable.setCircular(true);
+//                        super.setResource(resource);
+                        ivheadImg.setImageDrawable(roundedBitmapDrawable);
+                    }
+                });
     }
 
     @Override

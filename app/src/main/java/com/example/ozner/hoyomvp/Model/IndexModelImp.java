@@ -8,7 +8,6 @@ import com.example.ozner.hoyomvp.HttpService.BaseCallBack;
 import com.example.ozner.hoyomvp.HttpService.NetJsonResponse;
 import com.example.ozner.hoyomvp.HttpService.ResponseListener;
 import com.example.ozner.hoyomvp.HoYoApplication;
-import com.example.ozner.hoyomvp.ResponseBean.IndexInfoResponse;
 import com.example.ozner.hoyomvp.Utils.HoYoPreference;
 
 import retrofit2.Call;

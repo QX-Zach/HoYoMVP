@@ -5,7 +5,6 @@ import android.content.Context;
 import com.example.ozner.hoyomvp.Bean.IndexInfo;
 import com.example.ozner.hoyomvp.HttpService.NetJsonResponse;
 import com.example.ozner.hoyomvp.HttpService.ResponseListener;
-import com.example.ozner.hoyomvp.ResponseBean.IndexInfoResponse;
 
 import retrofit2.Call;
 
