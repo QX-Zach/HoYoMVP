@@ -7,5 +7,8 @@ import com.example.ozner.hoyomvp.HttpService.ResponseListener;
  */
 public interface ILoginModel {
     void Login(String phone, String passwor, ResponseListener rl);
+
+    void reLogin(String usertoken, ResponseListener rl);
+
     void calcleLogin();
 }

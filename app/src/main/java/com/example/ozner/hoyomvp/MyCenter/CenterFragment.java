@@ -1,6 +1,7 @@
 package com.example.ozner.hoyomvp.MyCenter;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.example.ozner.hoyomvp.Bean.IndexInfo;
 import com.example.ozner.hoyomvp.HoYoApplication;
 import com.example.ozner.hoyomvp.MyCenter.Presenter.CenterFgPresenter;
 import com.example.ozner.hoyomvp.MyCenter.views.ICenterFgView;
+import com.example.ozner.hoyomvp.MyCenter.views.WaterGuardActivity;
 import com.example.ozner.hoyomvp.R;
 import com.example.ozner.hoyomvp.Utils.ImageHelper;
 
@@ -159,6 +161,7 @@ public class CenterFragment extends BaseFragment implements ICenterFgView {
             case R.id.rlay_star:
                 break;
             case R.id.rlay_service:
+
                 break;
             case R.id.rlay_site:
                 break;

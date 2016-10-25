@@ -1,10 +1,5 @@
 package com.example.ozner.hoyomvp.HttpService;
 
-import org.json.JSONObject;
-
-import java.io.PipedReader;
-import java.util.concurrent.ExecutionException;
-
 /**
  * Created by ozner_67 on 2016/5/23.
  */
@@ -18,7 +13,7 @@ public class NetJsonResponse<T> {
         return "NetJsonResponse{" +
                 "state=" + state +
                 ", msg='" + msg + '\'' +
-                ", data=" + data.toString() +
+//                ", data=" + data != null ? data.toString() : "null" +
                 '}';
     }
 

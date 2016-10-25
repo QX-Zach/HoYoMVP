@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -87,6 +86,7 @@ public class LoginActivity extends BaseActivity implements IloginView, IRegistVi
         loginPresenter = new LoginPresenter(this, this);
         registPresenter = new RegistPresenter(this, this);
         initListener();
+        loginPresenter.reLogin(this);
     }
 
     private void initListener() {

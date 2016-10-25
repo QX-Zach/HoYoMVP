@@ -3,6 +3,7 @@ package com.example.ozner.hoyomvp.Login.Presenter;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.ozner.hoyomvp.Bean.IndexInfo;
 import com.example.ozner.hoyomvp.IBaseView;
 import com.example.ozner.hoyomvp.Utils.LogUtilLC;
 import com.example.ozner.hoyomvp.HttpService.NetJsonResponse;
@@ -25,6 +26,36 @@ public class LoginPresenter {
         this.baseView = baseView;
         this.loginView = loginView;
         loginModel = new LoginModel();
+    }
+
+    public void reLogin(final Context context) {
+        if (HoYoPreference.getUserToken(context)!=null&&!HoYoPreference.getUserToken(context).isEmpty()) {
+            loginModel.reLogin(HoYoPreference.getUserToken(context), new ResponseListener<NetJsonResponse<IndexInfo>>() {
+                @Override
+                public void onSuccess(NetJsonResponse<IndexInfo> data) {
+                    if (data != null) {
+                        if (LogUtilLC.APP_DBG) {
+                            LogUtilLC.E("tag", "登录：" + data.toString());
+                        }
+                        if (data.getState() > 0) {
+                            loginView.loginSuccess();
+                        } else if (data.getState() != 0 && data.getState() != -10015) {
+                            baseView.showErrMsg(data.getState());
+                        } else {
+                            HoYoPreference.setUserToken(context, "");
+                            baseView.finishAll();
+                            Intent loginIntent = new Intent(context, LoginActivity.class);
+                            context.startActivity(loginIntent);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(String errmsg) {
+                    baseView.showToast("请检查网络连接");
+                }
+            });
+        }
     }
 
     public void login(final Context context) {
