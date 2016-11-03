@@ -41,6 +41,15 @@ public class WaterBluetoothManager {
     }
 
     /**
+     * 写入滤芯回调
+     */
+    public interface WriteFilterListener {
+        void onResult(boolean isSuccess, String errMsg);
+
+        void writingFilter(int index);
+    }
+
+    /**
      * 连接状态
      */
     public interface ConnectState {
@@ -139,43 +148,62 @@ public class WaterBluetoothManager {
     }
 
 
+    private Thread writeThread;
+
     /**
      * 写入滤芯信息
      *
      * @param filterInfos
      */
-    public int writeFilterInfos(FilterInfo[] filterInfos) {
+    public void writeFilterInfos(final FilterInfo[] filterInfos, final WriteFilterListener listener) {
         //判断蓝牙连接
-        if (bluetoothGatt == null) return -1;
+        if (bluetoothGatt == null) {
+            listener.onResult(false, "蓝牙未连接");
+            return;
+        }
         if (!isConnected) {//设备没有连接
             Log.e(TAG, "writeFilterInfos: 设备没有连接");
-            return -2;
+            listener.onResult(false, "设备未连接");
+            return;
         }
-        int state = -3;//写入失败
-        try {
-            for (int i = 0; i < filterInfos.length; i++) {
-                state = i + 1;
-                byte[] data = new byte[19];
-                data[0] = 0x12;
-                filterInfos[i].toBytes(data, 1);
-                if (mInput != null) {
-                    mInput.setValue(data);
-                    bluetoothGatt.writeCharacteristic(mInput);
-                }
-                //延时防止写入太快设备收不到
+        if (writeThread != null && !writeThread.isInterrupted()) {
+            writeThread.interrupt();
+        }
+
+        writeThread = null;
+        writeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
                 try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "writeFilterInfos_sleep_ex: " + e.getMessage());
+                    for (int i = 0; i < filterInfos.length; i++) {
+                        byte[] data = new byte[19];
+                        data[0] = 0x12;
+                        filterInfos[i].toBytes(data, 1);
+                        if (mInput != null) {
+                            mInput.setValue(data);
+                            listener.writingFilter(filterInfos[i].index);
+                            while (!bluetoothGatt.writeCharacteristic(mInput)) {
+                                Log.e(TAG, String.format("%s(写入滤芯%d错误)", blueDevice.getAddress(), filterInfos[i].index));
+                            }
+                        }
+                        //延时防止写入太快设备收不到
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            Log.e(TAG, "writeFilterInfos_sleep_ex: " + e.getMessage());
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Log.e(TAG, "writeFilterInfos_Ex: " + ex.getMessage());
+                    listener.onResult(false, ex.getMessage());
+                    return;
                 }
+                listener.onResult(true, "写入完成");
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Log.e(TAG, "writeFilterInfos_Ex: " + ex.getMessage());
-            return state;
-        }
-        return 0;//写入成功
+        });
+        writeThread.start();
     }
 
 

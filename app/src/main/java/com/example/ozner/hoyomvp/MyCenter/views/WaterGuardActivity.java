@@ -20,9 +20,11 @@ import com.example.ozner.hoyomvp.MyCenter.views.BluetoothManagent.WaterBluetooth
 import com.example.ozner.hoyomvp.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import butterknife.ButterKnife;
@@ -30,7 +32,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class WaterGuardActivity extends AppCompatActivity {
-
+    private static final String TAG = "WaterGuardActivity";
     WaterBluetoothManager waterManager;
     @InjectView(R.id.tv_show)
     TextView tvShow;
@@ -46,6 +48,10 @@ public class WaterGuardActivity extends AppCompatActivity {
     Button btnReadFilter;
     @InjectView(R.id.btn_disConnect)
     Button btnDisConnect;
+    @InjectView(R.id.btn_writeTest)
+    Button btnWriteTest;
+    @InjectView(R.id.tv_writeInfo)
+    TextView tvWriteInfo;
     private List<WaterBluetoothManager.FilterInfo> filterInfos;
     SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -124,7 +130,7 @@ public class WaterGuardActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btn_connectDevice, R.id.btn_readSensor, R.id.btn_readFilter, R.id.btn_disConnect})
+    @OnClick({R.id.btn_connectDevice, R.id.btn_readSensor, R.id.btn_readFilter, R.id.btn_disConnect, R.id.btn_writeTest})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_connectDevice:
@@ -152,8 +158,49 @@ public class WaterGuardActivity extends AppCompatActivity {
             case R.id.btn_disConnect:
                 waterManager.disConnect();
                 break;
+            case R.id.btn_writeTest:
+                writeFilterTest();
+                break;
         }
     }
+
+
+    private void writeFilterTest() {
+        tvWriteInfo.setText("");
+
+        List<WaterBluetoothManager.FilterInfo> filterInfos = new ArrayList<>();
+        Random random = new Random(new Date().getTime());
+        for (int i = 0; i < 5; i++) {
+            WaterBluetoothManager.FilterInfo info = new WaterBluetoothManager.FilterInfo();
+            info.index = (byte) i;
+            info.time = (int) (new Date().getTime() / 1000);
+            info.maxVol = random.nextInt(2000) + 1000;
+            info.workTime = random.nextInt(1000);
+            info.maxTime = random.nextInt(1000) + 1000;
+            filterInfos.add(info);
+        }
+        for (WaterBluetoothManager.FilterInfo info : filterInfos) {
+            String infoStr = String.format("index:%d, maxVol:%d, workTime:%d, maxtTime:%d"
+                    , (int) info.index, info.maxVol, info.workTime, info.maxTime);
+            Log.e(TAG, "writeFilterTest_data: " + infoStr);
+            tvWriteInfo.append(infoStr);
+            tvWriteInfo.append("\n");
+        }
+        WaterBluetoothManager.FilterInfo[] writeInfos = new WaterBluetoothManager.FilterInfo[filterInfos.size()];
+        filterInfos.toArray(writeInfos);
+        waterManager.writeFilterInfos(writeInfos, new WaterBluetoothManager.WriteFilterListener() {
+            @Override
+            public void onResult(boolean isSuccess, String errMsg) {
+                Log.e(TAG, "writeFilter_result: " + isSuccess + " ,ErrorMsg:" + errMsg);
+            }
+
+            @Override
+            public void writingFilter(int index) {
+                Log.i(TAG, "writingFilter_index: 正在写入：" + index);
+            }
+        });
+    }
+
 
     private void setConnectState(final String stateMsg) {
         runOnUiThread(new Runnable() {
